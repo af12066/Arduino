@@ -1,11 +1,12 @@
 # webserver_sketch
 
 ## 動作
-http://192.168.1.177に接続して，ボタンを押すと9番ピンのHIGH/LOWが変わる．
+http://192.168.1.177 に接続して，ボタンを押すと9番ピンのHIGH/LOWが変わる．
 
 LEDを接続するとわかりやすい．
 
 クライアントからは以下のようなデータが受信される．
+
 	GET /?1=on HTTP/1.1
 	Host: 192.168.1.177
 	Connection: keep-alive
