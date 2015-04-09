@@ -33,14 +33,15 @@ void setup() {
   Serial.println();
   
   Udp.begin(localPort);
-  
-  // 時刻リクエスト送信
+      // 時刻リクエスト送信
   sendNTPpacket(timeServer);
   lastSendPacketTime = millis();
+
 }
 
 void loop() {
-  if ( millis() - lastSendPacketTime > 180000 ){
+  
+  if ( millis() - lastSendPacketTime > 900 ){
     // NTPサーバへ時刻リクエストを送信
     sendNTPpacket(timeServer);
     // 時間を更新
@@ -89,7 +90,11 @@ void loop() {
     Serial.print(':'); 
     Serial.println(second());
     Serial.println();
+    
+    unsigned int  nowminut = (unsigned int)minute();
+    Serial.println(nowminut);
   } 
+  delay(1000);
 }
 
 unsigned long sendNTPpacket(IPAddress& address)
