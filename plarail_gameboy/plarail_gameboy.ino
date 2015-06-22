@@ -1,6 +1,6 @@
-const int trig01 = 3; // 測定開始・終了用
-const int trig02 = 4; // 距離測定用
-const int button = 2; // ボタンを押して開始
+const int trig01 = 10; // 測定開始・終了用
+const int trig02 = 11; // 距離測定用
+const int button = 4; // ボタンを押して開始
 
 char c;
 char i = '1';
@@ -17,32 +17,33 @@ void setup() {
 }
 
 void loop() {
-  while (digitalRead(button) == LOW) {}
-  delay(5000);
-  Serial.print("r");
-  PORTD |= _BV(3);
+    while (digitalRead(button) == LOW) {} // ボタン操作が入るまで停止
 
-  while (true) {
-    if (Serial.available() > 0) {
+    Serial.print("r");
+    PORTB |= _BV(2); // digitalWrite(trig01, HIGH);
 
-      c = Serial.read();
-      if ( c == i ) {
-        trigSwitch02 = !trigSwitch02;
-        digitalWrite(trig02, trigSwitch02);
-        i++;
-      }
-      if (c == '4') {
-        break;
-      }
+    while (true) {
 
-    }
-  }
+        if (Serial.available() > 0) {
 
+            c = Serial.read();
 
-  PORTD &= ~_BV(3);
-  //trigSwitch01 = !trigSwitch01;
-  //digitalWrite(trig01, trigSwitch01);
-  Serial.print(F("f"));
-  for (;;);
+            if (c == i) {
+                trigSwitch02 = !trigSwitch02; // 距離測定用トリガのHIGH,LOW切り替え
+                digitalWrite(trig02, trigSwitch02);
+                i++;
+            }
+            if (c == '4') { // ここで磁石を通る回数を指定
+                break;
+            }
+
+        } // end if (Serial.available())
+
+    } // end while
+
+    PORTB &= ~_BV(2); // digitalWrite(trig01, LOW);
+    Serial.print(F("f"));
+
+    for (;;); // プログラムのくり返し阻止
 
 }
