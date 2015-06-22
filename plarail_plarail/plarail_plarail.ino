@@ -33,6 +33,7 @@ void loop() {
           light = !light;
           digitalWrite(ledPin, light);
           i++;
+          while (digitalRead(magnetPin) == 0){}
         }
         if (Serial.read() == 'f') {
           finish();
@@ -47,7 +48,7 @@ void forward(int value) {
   digitalWrite(inputPin01, LOW); // inputPin01をLOW
   digitalWrite(inputPin02, HIGH); // inputPin02をHIGH
   analogWrite(pwmPin, value);
-  delay(100);
+  delay(80);
   return;
 }
 

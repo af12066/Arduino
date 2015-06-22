@@ -3,17 +3,17 @@ const int trig02 = 4; // 距離測定用
 const int button = 2; // ボタンを押して開始
 
 char c;
-
-int i = 1;
+char i = '1';
 
 boolean trigSwitch01 = true;
-boolean trigSwitch02 = false;
+boolean trigSwitch02 = true;
 
 void setup() {
   pinMode(trig01, OUTPUT);
   pinMode(trig02, OUTPUT);
   pinMode(button, INPUT);
   Serial.begin(9600);
+  digitalWrite(trig02, trigSwitch02);
 }
 
 void loop() {
